@@ -1,11 +1,13 @@
 package apppackage;
 
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import org.json.*;
 
@@ -34,26 +36,29 @@ public class WeatherGUI extends JFrame{
 	 * draws the displays
 	 */
 	private void display() {
-		JLabel jLabel_name = new JLabel(" City: " + this.name);
-		JLabel jLabel_country = new JLabel(" Country: " + this.country);
-		JLabel jLabel_description = new JLabel(" Description: " + this.description);
-		JLabel jLabel_temp = new JLabel(" Temperature: " + this.temp);
-		JLabel jLabel_temp_min = new JLabel(" Temperature (Min): " + this.temp_min);
-		JLabel jLabel_temp_max = new JLabel(" Temperature (Max): " + this.temp_max);
-		JLabel jLabel_humidity = new JLabel(" Humidity: " + this.humidity);
+		JLabel jLabel_location = new JLabel(""+this.name+", "+this.country, SwingConstants.CENTER);
+		JLabel jLabel_temp = new JLabel(""+this.temp+"\u00B0F", SwingConstants.CENTER);
+		JLabel jLabel_description = new JLabel(""+this.description, SwingConstants.CENTER);
+		JLabel jLabel_temp_min = new JLabel("<html>Temp Min<br/>"+this.temp_min+"\u00B0F</html>", SwingConstants.CENTER);
+		JLabel jLabel_temp_max = new JLabel("<html>Temp Max<br/>"+this.temp_max+"\u00B0F</html>", SwingConstants.CENTER);
+		JLabel jLabel_humidity = new JLabel(" Humidity: "+this.humidity, SwingConstants.CENTER);
 		
 		
-		jLabel_name.setBounds(10, 0, 250, 50);
-		jLabel_country.setBounds(10, 20, 250, 50);
-		jLabel_description.setBounds(10, 50, 250, 50);
-		jLabel_temp.setBounds(10, 70, 250, 50);
-		jLabel_temp_min.setBounds(10, 90, 250, 50);
-		jLabel_temp_max.setBounds(10, 110, 250, 50);
-		jLabel_humidity.setBounds(10, 130, 250, 50);
+		jLabel_location.setBounds(10, 0, 250, 50);
+		jLabel_location.setFont(new Font("Serif", Font.BOLD, 20));
+		jLabel_temp.setBounds(10, 40, 250, 50);
+		jLabel_temp.setFont(new Font("Serif", Font.BOLD, 40));
+		jLabel_description.setBounds(10, 70, 250, 50);
+		jLabel_description.setFont(new Font("Serif", Font.BOLD, 18));
+		jLabel_temp_min.setBounds(10, 120, 150, 50);
+		jLabel_temp_min.setFont(new Font("Serif", Font.BOLD, 18));
+		jLabel_temp_max.setBounds(120, 120, 150, 50);
+		jLabel_temp_max.setFont(new Font("Serif", Font.BOLD, 18));
+		jLabel_humidity.setBounds(10, 170, 250, 50);
+		jLabel_humidity.setFont(new Font("Serif", Font.BOLD, 20));
 		
 		
-		this.add(jLabel_name);
-		this.add(jLabel_country);
+		this.add(jLabel_location);
 		this.add(jLabel_description);
 		this.add(jLabel_temp);
 		this.add(jLabel_temp_min);
@@ -72,8 +77,8 @@ public class WeatherGUI extends JFrame{
 		
 		//credentials
 		final String API_KEY = "9eeeb730de15d01bea2b068ccf0fde37";
-		String location = "San Francisco,us";
-		String urlString = "https://api.openweathermap.org/data/2.5/weather?q="+location+"&appid=" + API_KEY;
+		String location = "5391959"; //San Francisco,us
+		String urlString = "https://api.openweathermap.org/data/2.5/weather?id="+location+"&appid="+API_KEY+"&units=imperial";
 		
 		//try to retrieve weather data
 		try {
